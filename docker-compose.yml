@@ -29,24 +29,35 @@ services:
             - laravel-9
 
     db:
-      image: postgres:15
-      restart: always
-      environment:
-        POSTGRES_DB: larafood
-        POSTGRES_USER: postgres
-        POSTGRES_PASSWORD: S1nPg3SUf0p4
-      ports:
-        - 5433:5432
-      volumes:
-        - db:/var/lib/postgresql/data
-      networks:
-        - laravel-9
+        image: postgres:15
+        restart: always
+        environment:
+            POSTGRES_DB: larafood
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: S1nPg3SUf0p4
+        ports:
+            - 5433:5432
+        volumes:
+            - db:/var/lib/postgresql/data
+        networks:
+            - laravel-9
 
     # redis
     redis:
         image: redis:latest
         ports:
-          - "6379:6379"
+            - "6379:6379"
+        networks:
+            - laravel-9
+    queue:
+        image: especializati/laravel9-app
+        restart: unless-stopped
+        command: "php artisan queue:work"
+        volumes:
+            - ./:/var/www
+        depends_on:
+            - redis
+            - app
         networks:
             - laravel-9
 
@@ -55,4 +66,4 @@ networks:
         driver: bridge
 
 volumes:
-  db:
+    db:
