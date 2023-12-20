@@ -295,6 +295,12 @@ return [
             'url'  => 'admin/plans',
             'icon' => 'fas fa-list-alt'
         ],
+        [
+            'text' => 'Perfis',
+            'url'  => 'admin/profiles',
+            'icon' => 'fas fa-address-book',
+            // 'can' => 'profiles' entender esta logica em video
+        ],
     ],
 
     /*

@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreUpdatePlan;
 use App\Models\Plan;
 use Illuminate\Http\Request;
 
@@ -31,11 +32,9 @@ class PlanController extends Controller
         return view('admin.pages.plans.create');
     }
 
-    public function store(Request $request)
+    public function store(StoreUpdatePlan $request)
     {
-        $data = $request->all();
-        $data['url'] = Str::kebab($request->name);
-        $this->repository->create($data);
+        $this->repository->create($request->all());
 
         return redirect()->route('plans.index');
     }
@@ -62,7 +61,7 @@ class PlanController extends Controller
         return view('admin.pages.plans.edit', compact('plan'));
     }
 
-    public function update(Request $request, string $url)
+    public function update(StoreUpdatePlan $request, string $url)
     {
         $plan = $this->repository->where('url', $url)->first();
 
@@ -77,10 +76,17 @@ class PlanController extends Controller
 
     public function destroy(string $url)
     {
-        $plan = $this->repository->where('url', $url)->first();
+        $plan = $this->repository
+                                ->with('details')
+                                ->where('url', $url)
+                                ->first();
 
         if (!$plan) {
             return back();
+        }
+
+        if($plan->details->count() > 0) {
+            return back()->with('error', 'O plano possui detalhes atribuidos a ele. Não é possivel deletar o plano.');
         }
 
         $plan->delete();
