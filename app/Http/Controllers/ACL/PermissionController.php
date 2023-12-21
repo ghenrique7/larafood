@@ -89,4 +89,6 @@ class PermissionController extends Controller
 
         return view('admin.pages.permissions.index', compact('permissions', 'filters'));
     }
+
+
 }

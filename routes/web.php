@@ -13,12 +13,22 @@
 
 use App\Http\Controllers\ACL\PermissionController;
 use App\Http\Controllers\ACL\ProfileController;
+use App\Http\Controllers\ACL\ProfilePermissionController;
 use App\Http\Controllers\Admin\DetailPlanController;
 use App\Http\Controllers\Admin\PlanController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')
     ->group(function () {
+
+        /**
+         * Profiles x Permissions
+         */
+        Route::get('profiles/{id}/permission/{idPermission}/detach', [ProfilePermissionController::class, 'detachPermissionsProfile'])->name('profiles.permissions.detach');
+        Route::post('profiles/{id}/permissions', [ProfilePermissionController::class, 'attachPermissionsProfile'])->name('profiles.permissions.attach');
+        Route::any('profiles/{id}/permissions/create', [ProfilePermissionController::class, 'permissionsAvailable'])->name('profiles.permissions.available');
+        Route::get('profiles/{id}/permissions', [ProfilePermissionController::class, 'permissions'])->name('profiles.permissions');
+        Route::get('profiles/{id}/profiles', [ProfilePermissionController::class, 'profiles'])->name('permissions.profiles');
 
         /**
          * Routes Permissions

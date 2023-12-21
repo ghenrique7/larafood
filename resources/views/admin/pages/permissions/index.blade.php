@@ -8,7 +8,7 @@
         <li class="breadcrumb-item active"><a href="{{ route('permissions.index') }}" class="active">Permissões</a></li>
     </ol>
 
-    <h1>Perfis <a href="{{ route('permissions.create') }}" class="btn btn-dark">ADD</a></h1>
+    <h1>Permissões <a href="{{ route('permissions.create') }}" class="btn btn-dark">ADD</a></h1>
 @stop
 
 @section('content')
@@ -38,8 +38,8 @@
                             <td style="width=10px;">
                                 <a href="{{ route('permissions.edit', $permission->id) }}" class="btn btn-info">Edit</a>
                                 <a href="{{ route('permissions.show', $permission->id) }}" class="btn btn-warning">VER</a>
-                                {{-- <a href="{{ route('profiles.permissions', $profile->id) }}" class="btn btn-warning"><i class="fas fa-lock"></i></a>
-                                <a href="{{ route('profiles.plans', $profile->id) }}" class="btn btn-info"><i class="fas fa-list-alt"></i></a> --}}
+                                <a href="{{ route('permissions.profiles', $permission->id) }}" class="btn btn-warning"><i class="fas fa-address-book"></i></a>
+                               {{-- <a href="{{ route('profiles.plans', $profile->id) }}" class="btn btn-info"><i class="fas fa-list-alt"></i></a> --}}
                             </td>
                         </tr>
                     @endforeach
