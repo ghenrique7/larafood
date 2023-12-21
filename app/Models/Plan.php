@@ -12,6 +12,31 @@ class Plan extends Model
         return $this->hasMany(DetailPlan::class);
     }
 
+    public function profiles() {
+        return $this->belongsToMany(Profile::class);
+    }
+
+    public function tenants() {
+        return $this->hasMany(Tenant::class);
+    }
+
+    public function profilesAvailable($filter = null) {
+        $profiles = Profile::whereNotIn('profiles.id', function ($query) {
+            $query->select('plan_profile.profile_id');
+            $query->from('plan_profile');
+            $query->whereRaw("plan_profile.plan_id={$this->id}");
+        })
+        ->where(function($queryFilter) use($filter) {
+            if($filter) {
+                $converted = strtolower($filter['filter']);
+                $queryFilter->where('name', 'LIKE', "%{$converted}%");
+            }
+        })
+        ->paginate();
+
+        return $profiles;
+    }
+
     public function search($filter = null)
     {
         $results = $this->where('name', 'ILIKE', "%{$filter}%")

@@ -18,10 +18,12 @@
         "predis/predis": "^2.2"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.9",
         "fakerphp/faker": "^1.9.1",
         "kitloong/laravel-migrations-generator": "^6.11",
         "laravel/pint": "^1.0",
         "laravel/sail": "^1.18",
+        "laravel/ui": "^4.3",
         "mockery/mockery": "^1.4.4",
         "nunomaduro/collision": "^7.0",
         "phpunit/phpunit": "^10.1",

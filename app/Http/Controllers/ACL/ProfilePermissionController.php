@@ -69,10 +69,10 @@ class ProfilePermissionController extends Controller
         return redirect()->route('profiles.permissions', $profile->id)->with('message', "Permissões vinculadas ao {$profile->name} com sucesso.");
     }
 
-    public function detachPermissionsProfile(string $id, string $idPermission)
+    public function detachPermissionsProfile(string $idProfile, string $idPermission)
     {
 
-        $profile =  $this->profile->find($id);
+        $profile =  $this->profile->find($idProfile);
         $permission =  $this->permission->find($idPermission);
 
         if (!$profile || !$permission) {

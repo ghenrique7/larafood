@@ -27,10 +27,10 @@ class Profile extends Model
             $query->from('permission_profile');
             $query->whereRaw("permission_profile.profile_id={$this->id}");
         })
-            ->where(function($queryfilter) use($filter) {
+            ->where(function($queryFilter) use($filter) {
                 if($filter) {
                     $converted = strtolower($filter['filter']);
-                    $queryfilter->where('permissions.name', 'LIKE', "%{$converted}%");
+                    $queryFilter->where('permissions.name', 'LIKE', "%{$converted}%");
                 }
             })
             ->paginate();

@@ -11,15 +11,28 @@
 |
 */
 
-use App\Http\Controllers\ACL\PermissionController;
-use App\Http\Controllers\ACL\ProfileController;
-use App\Http\Controllers\ACL\ProfilePermissionController;
-use App\Http\Controllers\Admin\DetailPlanController;
-use App\Http\Controllers\Admin\PlanController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\PlanController;
+use App\Http\Controllers\ACL\ProfileController;
+use App\Http\Controllers\ACL\PermissionController;
+use App\Http\Controllers\ACL\PlanProfileController;
+use App\Http\Controllers\Admin\DetailPlanController;
+use App\Http\Controllers\ACL\ProfilePermissionController;
+use App\Http\Controllers\Site\SiteController;
 
 Route::prefix('admin')
+    ->middleware('auth')
     ->group(function () {
+
+        /**
+         * Plan x Profile
+         */
+        Route::get('plans/{id}/profiles/{idProfile}/detach', [PlanProfileController::class, 'detachProfilesPlan'])->name('profiles.plans.detach');
+        Route::post('plans/{id}/profiles', [PlanProfileController::class, 'attachProfilesPlan'])->name('profiles.plans.attach');
+        Route::any('plans/{id}/profiles/create', [PlanProfileController::class, 'profilesAvailable'])->name('plans.profiles.available');
+        Route::get('plans/{id}/profiles', [PlanProfileController::class, 'profiles'])->name('plans.profiles');
+        Route::get('profiles/{id}/plans', [PlanProfileController::class, 'plans'])->name('profiles.plans');
 
         /**
          * Profiles x Permissions
@@ -28,7 +41,7 @@ Route::prefix('admin')
         Route::post('profiles/{id}/permissions', [ProfilePermissionController::class, 'attachPermissionsProfile'])->name('profiles.permissions.attach');
         Route::any('profiles/{id}/permissions/create', [ProfilePermissionController::class, 'permissionsAvailable'])->name('profiles.permissions.available');
         Route::get('profiles/{id}/permissions', [ProfilePermissionController::class, 'permissions'])->name('profiles.permissions');
-        Route::get('profiles/{id}/profiles', [ProfilePermissionController::class, 'profiles'])->name('permissions.profiles');
+        Route::get('permissions/{id}/profiles', [ProfilePermissionController::class, 'profiles'])->name('permissions.profiles');
 
         /**
          * Routes Permissions
@@ -75,6 +88,9 @@ Route::prefix('admin')
 
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [SiteController::class, 'index'])->name('site.home');
+
+/**
+ * Auth Routes
+ */
+Auth::routes();
