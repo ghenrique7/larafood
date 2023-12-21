@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class StoreUpdatePlan extends FormRequest
+class StoreUpdatePermission extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,12 +22,9 @@ class StoreUpdatePlan extends FormRequest
      */
     public function rules(): array
     {
-
         return [
-            'name' => ['required','min:3','max:255', Rule::unique('plans', 'url')->ignore($this->plan
-            , 'url')],
-            'description' => 'nullable|min:3|max:255',
-            'price' => "required|regex:/^\d+(\.\d{1,2})?$/"
+            'name' => ['required', 'min:3', 'max:255', Rule::unique('permissions', 'name')->ignore($this->permission)],
+            'description' => ['nullable', 'min:3', 'max:255']
         ];
     }
 }

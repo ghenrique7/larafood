@@ -22,7 +22,7 @@ class PlanController extends Controller
 
     public function index()
     {
-        $plans = $this->repository->oldest()->paginate();
+        $plans = $this->repository->orderBy('name', 'asc')->paginate(5);
 
         return view('admin.pages.plans.index', compact('plans'));
     }

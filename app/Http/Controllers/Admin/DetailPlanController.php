@@ -26,7 +26,7 @@ class DetailPlanController extends Controller
             return back();
         }
 
-        $details = $plan->details()->paginate();
+        $details = $plan->details()->paginate(5);
 
         return view('admin.pages.plans.details.index', compact('plan', 'details'));
     }

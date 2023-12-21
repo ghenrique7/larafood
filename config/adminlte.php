@@ -301,6 +301,12 @@ return [
             'icon' => 'fas fa-address-book',
             // 'can' => 'profiles' entender esta logica em video
         ],
+        [
+            'text' => 'Permissões',
+            'url'  => 'admin/permissions',
+            'icon' => 'fas fa-lock',
+            // 'can' => 'permissions' entender esta logica em video
+        ],
     ],
 
     /*

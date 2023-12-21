@@ -19,12 +19,12 @@
             </ul>
 
             @include('admin.includes.alerts')
-{{-- 
-            <form action="{{ route('profiles.destroy', $profile->id) }}" method="POST">
+
+            <form action="{{ route('profiles.destroy', $profile->id) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja excluir?')">
                 @csrf
                 @method('DELETE')
                 <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i> DELETAR O PERFIL: {{ $profile->name }}</button>
-            </form> --}}
+            </form>
         </div>
     </div>
 @endsection
