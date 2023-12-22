@@ -307,6 +307,11 @@ return [
             'icon' => 'fas fa-lock',
             // 'can' => 'permissions' entender esta logica em video
         ],
+        [
+            'text' => 'Usuários',
+            'url'  => 'admin/users',
+            'icon' => 'fas fa-users'
+        ],
     ],
 
     /*
