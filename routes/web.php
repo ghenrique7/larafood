@@ -88,6 +88,10 @@ Route::prefix('admin')
 
 
 
+/**
+ * Site
+ */
+Route::get('/plan/{url}', [SiteController::class, 'plan'])->name('plan.subscription');
 Route::get('/', [SiteController::class, 'index'])->name('site.home');
 
 /**
