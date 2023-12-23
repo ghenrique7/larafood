@@ -13,18 +13,27 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Site\SiteController;
 use App\Http\Controllers\Admin\PlanController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\ACL\ProfileController;
 use App\Http\Controllers\ACL\PermissionController;
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\ACL\PlanProfileController;
 use App\Http\Controllers\Admin\DetailPlanController;
 use App\Http\Controllers\ACL\ProfilePermissionController;
-use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Site\SiteController;
 
 Route::prefix('admin')
     ->middleware('auth')
     ->group(function () {
+
+
+        /**
+         * Routes Categories
+         */
+        Route::any('categories/search', [CategoryController::class, 'search'])->name('categories.search');
+        Route::resource('categories', CategoryController::class);
+
         /**
          * Routes Users
          */
