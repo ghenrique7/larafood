@@ -14,10 +14,10 @@
                     <strong>Nome: </strong> {{ $category->name }}
                 </li>
                 <li>
-                    <strong>Email: </strong> {{ $category->email }}
+                    <strong>URL: </strong> {{ $category->url }}
                 </li>
                 <li>
-                    <strong>Empresa: </strong> {{ $category->tenant->name }}
+                    <strong>Descirção: </strong> {{ $category->description }}
                 </li>
             </ul>
 
