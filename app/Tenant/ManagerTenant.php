@@ -14,6 +14,6 @@ class ManagerTenant {
     }
 
     public function isAdmin(): bool {
-        return in_array(auth()->user()->email, config('tenant.admins'));
+        return in_array(auth()->user()->email, config('acl.admins'));
     }
 }

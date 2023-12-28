@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\ACL;
+namespace App\Http\Controllers\Admin\ACL;
 
 use App\Http\Controllers\Controller;
 use App\Models\Permission;
@@ -15,6 +15,9 @@ class ProfilePermissionController extends Controller
     {
         $this->profile = $profile;
         $this->permission = $permission;
+
+        $this->middleware(['can:permissions']);
+
     }
 
 

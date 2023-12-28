@@ -3,18 +3,19 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreUpdateCategory;
-use App\Models\Category;
+use App\Http\Requests\StoreUpdateTable;
+use App\Models\Table;
 use Illuminate\Http\Request;
 
-class CategoryController extends Controller
+class TableController extends Controller
 {
     private $repository;
 
-    public function __construct(Category $category)
+    public function __construct(Table $table)
     {
-        $this->repository = $category;
-        $this->middleware(['can:categories']);
+        $this->repository = $table;
+
+        $this->middleware(['can:tables']);
 
     }
     /**
@@ -22,9 +23,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = $this->repository->latest()->paginate();
+        $tables = $this->repository->latest()->paginate();
 
-        return view('admin.pages.categories.index', compact('categories'));
+        return view('admin.pages.tables.index', compact('tables'));
     }
 
     /**
@@ -32,17 +33,17 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('admin.pages.categories.create');
+        return view('admin.pages.tables.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreUpdateCategory $request)
+    public function store(StoreUpdateTable $request)
     {
         $this->repository->create($request->all());
 
-        return redirect()->route('categories.index');
+        return redirect()->route('tables.index');
     }
 
     /**
@@ -50,11 +51,11 @@ class CategoryController extends Controller
      */
     public function show(string $id)
     {
-        if (!$category = $this->repository->find($id)) {
+        if (!$table = $this->repository->find($id)) {
             return back();
         }
 
-        return view('admin.pages.categories.show', compact('category'));
+        return view('admin.pages.tables.show', compact('table'));
     }
 
     /**
@@ -62,25 +63,25 @@ class CategoryController extends Controller
      */
     public function edit(string $id)
     {
-        if (!$category = $this->repository->find($id)) {
+        if (!$table = $this->repository->find($id)) {
             return back();
         }
 
-        return view('admin.pages.categories.edit', compact('category'));
+        return view('admin.pages.tables.edit', compact('table'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(StoreUpdateCategory $request, string $id)
+    public function update(StoreUpdateTable $request, string $id)
     {
-        if (!$category = $this->repository->find($id)) {
+        if (!$table = $this->repository->find($id)) {
             return back();
         }
 
-        $category->update($request->all());
+        $table->update($request->all());
 
-        return redirect()->route('categories.index');
+        return redirect()->route('tables.index');
     }
 
     /**
@@ -88,20 +89,20 @@ class CategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        if (!$category = $this->repository->find($id)) {
+        if (!$table = $this->repository->find($id)) {
             return back();
         }
 
-        $category->delete();
+        $table->delete();
 
-        return redirect()->route('categories.index');
+        return redirect()->route('tables.index');
     }
 
     public function search(Request $request)
     {
         $filters = $request->only('filter');
 
-        $categories = $this->repository
+        $tables = $this->repository
             ->where(function ($query) use ($request) {
                 if ($request->filter) {
                     $query->where('name', 'LIKE', "%{$request->filter}%");
@@ -111,6 +112,6 @@ class CategoryController extends Controller
             ->latest()
             ->paginate();
 
-        return view('admin.pages.categories.index', compact('categories', 'filters'));
+        return view('admin.pages.tables.index', compact('tables', 'filters'));
     }
 }

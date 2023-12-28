@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', "Detalhes da Categoria {$category->name}")id
+@section('title', "Detalhes da Categoria {$category->name}")
 
 @section('content_header')
     <h1>Detalhes da Categoria <b>{{ $category->name }}</b></h1>

@@ -1,2 +1,3 @@
-Estou no crud de mesas agora - Modulo 14
-Recriar modulo de mesas baseado no de categorias.
+To no ep 3 do modulo 18 - criaçao do evento para adicionar cargo automaticamente
+ate agr tem um problema envolvendo as permissões que n estão sendo "reconhecidas"
+pelo codigo na trait

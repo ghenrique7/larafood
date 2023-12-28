@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\ACL;
+namespace App\Http\Controllers\Admin\ACL;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUpdateProfile;
@@ -16,7 +16,7 @@ class ProfileController extends Controller
     {
         $this->repository = $profile;
 
-        // $this->middleware('can:profiles'); Entender com o video
+        $this->middleware(['can:profiles']);
     }
 
 

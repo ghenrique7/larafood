@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\ACL;
+namespace App\Http\Controllers\Admin\ACL;
 
 use App\Http\Controllers\Controller;
 use App\Models\Plan;
@@ -15,6 +15,9 @@ class PlanProfileController extends Controller
     {
         $this->plan = $plan;
         $this->profile = $profile;
+
+        $this->middleware(['can: profiles']);
+
     }
 
     public function profiles(string $id)
