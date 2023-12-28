@@ -6,15 +6,16 @@ use App\Models\Tenant;
 
 trait UserACLTrait
 {
-    public function permissions() {
+    public function permissions()
+    {
         $permissionsPlan = $this->permissionsPlan();
         $permissionsRole = $this->permissionsRole();
+        $intersectedPermissions = array_intersect($permissionsPlan, $permissionsRole);
 
         $permissions = [];
-        foreach($permissionsRole as $permissionRole) {
-            if(in_array($permissionRole, $permissionsPlan)) {
-                array_push($permissions, $permissionsPlan);
-            }
+
+        foreach($intersectedPermissions as $permission) {
+            array_push($permissions, $permission);
         }
 
         return $permissions;
@@ -42,8 +43,11 @@ trait UserACLTrait
     {
         $roles = $this->roles()->with('permissions')->get();
         $permissions = [];
-        foreach ($roles->permissions as $permissionRole) {
-            array_push($permissions, $permissionRole);
+
+        foreach ($roles as $role) {
+            foreach ($role->permissions as $permission) {
+                array_push($permissions, $permission->name);
+            }
         }
 
         return $permissions;
