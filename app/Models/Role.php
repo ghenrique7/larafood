@@ -13,7 +13,26 @@ class Role extends Model
         return $this->belongsToMany(Permission::class);
     }
 
-    public function users() {
+    public function users()
+    {
         return $this->belongsToMany(User::class);
+    }
+
+    public function permissionsAvailable($filter = null)
+    {
+        $permissions = Permission::whereNotIn('permissions.id', function ($query) {
+            $query->select('permission_id');
+            $query->from('permission_role');
+            $query->whereRaw("permission_role.role_id={$this->id}");
+        })
+            ->where(function ($queryFilter) use ($filter) {
+                if ($filter) {
+                    $converted = strtolower($filter['filter']);
+                    $queryFilter->where('permissions.name', 'LIKE', "%{$converted}%");
+                }
+            })
+            ->paginate();
+
+        return $permissions;
     }
 }

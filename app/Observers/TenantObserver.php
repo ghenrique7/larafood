@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 class TenantObserver
 {
     /**
-     * Handle the Tenant "creating" event.
+     * Handle the Tenant "created" event.
      */
     public function creating(Tenant $tenant): void
     {
@@ -17,10 +17,12 @@ class TenantObserver
     }
 
     /**
-     * Handle the Tenant "updating" event.
+     * Handle the Tenant "updated" event.
      */
     public function updating(Tenant $tenant): void
     {
         $tenant->url = Str::kebab($tenant->name);
     }
+
+
 }

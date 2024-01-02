@@ -3,13 +3,22 @@
 namespace App\Providers;
 
 use App\Models\{
+    Category,
+    Client,
     Plan,
+    Product,
+    Table,
     Tenant
 };
 use App\Observers\{
+    CategoryObserver,
+    ClientObserver,
     PlanObserver,
-    TenantObserver
+    TenantObserver,
+    ProductObserver,
+    TableObserver
 };
+
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 
@@ -20,7 +29,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+       //
     }
 
     /**
@@ -28,9 +37,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
         Paginator::useBootstrap();
         Plan::observe(PlanObserver::class);
         Tenant::observe(TenantObserver::class);
+        Category::observe(CategoryObserver::class);
+        Product::observe(ProductObserver::class);
+        Table::observe(TableObserver::class);
+        Client::observe(ClientObserver::class);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\ACL;
+namespace App\Http\Controllers\Admin\ACL;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUpdatePermission;
@@ -14,6 +14,7 @@ class PermissionController extends Controller
     public function __construct(Permission $permission)
     {
         $this->repository = $permission;
+        $this->middleware(['can:permissions']);
     }
 
     public function index()

@@ -23,13 +23,13 @@ class StoreUpdateUser extends FormRequest
     public function rules(): array
     {
         $rules = [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users', 'email')->ignore($this->user)],
+            'name' => ['required', 'string', 'min:3', 'max:255'],
+            'email' => ['required', 'string', 'email', 'min:3', 'max:255', Rule::unique('users')->ignore($this->user)],
             'password' => ['required', 'string', 'min:6', 'max:16'],
         ];
 
-        if($this->method() == 'PUT') {
-            $rules['password'] = ['nullable', 'min:6', 'max:16'];
+        if ($this->method() == 'PUT') {
+            $rules['password'] = ['nullable', 'string', 'min:6', 'max:16'];
         }
 
         return $rules;

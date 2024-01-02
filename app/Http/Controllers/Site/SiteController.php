@@ -18,7 +18,6 @@ class SiteController extends Controller
         if(!$plan = Plan::where('url', $url)->first()) {
             return back()->with('error', 'A url passada não corresponde com nossos registros.');
         }
-        
         session()->put('plan', $plan);
 
         return redirect()->route('register');

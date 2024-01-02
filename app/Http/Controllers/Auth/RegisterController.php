@@ -4,14 +4,14 @@ namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
 use Illuminate\Support\Str;
+use App\Services\TenantService;
+use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
-use App\Models\Plan;
 use Illuminate\Support\Facades\Hash;
 use App\Providers\RouteServiceProvider;
-use App\Services\TenantService;
+use App\Tenant\Events\TenantCreated;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Validation\Rule;
 
 class RegisterController extends Controller
 {
@@ -54,11 +54,11 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'name' => ['required', 'string', 'min:3', 'max:255'],
+            'email' => ['required', 'string', 'email', 'min:3', 'max:255', Rule::unique('users')],
             'password' => ['required', 'string', 'min:6', 'max:16', 'confirmed'],
+            'company' => ['required', 'string', 'min:3', 'max:255', Rule::unique('tenants', 'name')],
             'cnpj' => ['required', 'numeric', 'digits:14', Rule::unique('tenants')],
-            'tenant' => ['required', 'string', 'min:3', 'max:255', Rule::unique('tenants', 'name')]
         ]);
     }
 
@@ -70,7 +70,6 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-
         if(!$plan = session('plan')) {
             return redirect()->route('site.home');
         }
@@ -78,6 +77,8 @@ class RegisterController extends Controller
         $tenantService = app(TenantService::class);
         $user = $tenantService->make($plan, $data);
 
-        return $user;   
+        event(new TenantCreated($user));
+
+        return $user;
     }
 }

@@ -13,24 +13,91 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Site\{
+    SiteController
+};
 use App\Http\Controllers\Admin\{
     PlanController,
     UserController,
-    DetailPlanController
+    TableController,
+    TenantController,
+    ProductController,
+    CategoryController,
+    DetailPlanController,
+    CategoryProductController
 };
-use App\Http\Controllers\ACL\{
+use App\Http\Controllers\Admin\ACL\{
+    RoleController,
     ProfileController,
     PermissionController,
     PlanProfileController,
-    ProfilePermissionController
-};
-use App\Http\Controllers\Site\{
-    SiteController
+    ProfilePermissionController,
+    RolePermissionController,
+    RoleUserController
 };
 
 Route::prefix('admin')
     ->middleware('auth')
     ->group(function () {
+
+        /**
+         * Roles x Users
+         */
+        Route::get('roles/{id}/{idUser}/detach', [RoleUserController::class, 'detachRolesUser'])->name('users.roles.detach');
+        Route::post('roles/{id}/users', [RoleUserController::class, 'attachRolesUser'])->name('users.roles.attach');
+        Route::any('roles/{id}/users/create', [RoleUserController::class, 'rolesAvailable'])->name('users.roles.available');
+        Route::get('roles/{id}/users', [RoleUserController::class, 'users'])->name('roles.users');
+        Route::get('users/{id}/roles', [RoleUserController::class, 'roles'])->name('users.roles');
+
+
+        /**
+         * Roles x Permissions
+         */
+        Route::get('roles/{id}/permission/{idPermission}/detach', [RolePermissionController::class, 'detachPermissionsRole'])->name('roles.permissions.detach');
+        Route::post('roles/{id}/permissions', [RolePermissionController::class, 'attachPermissionsRole'])->name('roles.permissions.attach');
+        Route::any('roles/{id}/permissions/create', [RolePermissionController::class, 'permissionsAvailable'])->name('roles.permissions.available');
+        Route::get('roles/{id}/permissions', [RolePermissionController::class, 'permissions'])->name('roles.permissions');
+        Route::get('permissions/{id}/roles', [RolePermissionController::class, 'roles'])->name('permissions.roles');
+
+
+        /**
+         * Routes Roles
+         */
+        Route::any('roles/search', [RoleController::class, 'search'])->name('roles.search');
+        Route::resource('roles', RoleController::class);
+
+        /**
+         * Routes Tenants
+         */
+        Route::any('tenants/search', [TenantController::class, 'search'])->name('tenants.search');
+        Route::resource('tenants', TenantController::class);
+
+        /**
+         * Routes Tables
+         */
+        Route::any('tables/search', [TableController::class, 'search'])->name('tables.search');
+        Route::resource('tables', TableController::class);
+
+        /**
+         * Category x Product
+         */
+        Route::any('products/{id}/categories/create', [CategoryProductController::class, 'categoriesAvailable'])->name('products.categories.available');
+        Route::get('products/{id}/categories/{idCategory}/detach', [CategoryProductController::class, 'detachCategoriesProduct'])->name('products.categories.detach');
+        Route::post('products/{id}/categories', [CategoryProductController::class, 'attachCategoriesProduct'])->name('products.categories.attach');
+        Route::get('products/{id}/categories', [CategoryProductController::class, 'categories'])->name('products.categories');
+        Route::get('categories/{id}/products', [CategoryProductController::class, 'products'])->name('categories.products');
+
+        /**
+         * Routes Products
+         */
+        Route::any('products/search', [ProductController::class, 'search'])->name('products.search');
+        Route::resource('products', ProductController::class);
+
+        /**
+         * Routes Categories
+         */
+        Route::any('categories/search', [CategoryController::class, 'search'])->name('categories.search');
+        Route::resource('categories', CategoryController::class);
 
         /**
          * Routes Users
