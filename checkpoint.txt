@@ -1,3 +1,1 @@
-To no ep 3 do modulo 18 - criaçao do evento para adicionar cargo automaticamente
-ate agr tem um problema envolvendo as permissões que n estão sendo "reconhecidas"
-pelo codigo na trait
+To no ep 6 do do sanctum

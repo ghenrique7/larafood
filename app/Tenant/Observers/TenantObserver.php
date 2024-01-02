@@ -10,7 +10,9 @@ class TenantObserver
     public function creating(Model $model): void
     {
         $managerTenant = app(ManagerTenant::class);
+        $identify = $managerTenant->getTenantIdentify();
 
-        $model->tenant_id = $managerTenant->getTenantIdentify();
+        if($identify)
+            $model->tenant_id = $identify;
     }
 }

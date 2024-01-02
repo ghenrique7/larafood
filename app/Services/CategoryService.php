@@ -3,24 +3,30 @@
 namespace App\Services;
 
 use App\Models\Plan;
+use App\Repositories\Contracts\CategoryRepositoryInterface;
 use App\Repositories\Contracts\TenantRepositoryInterface;
 
-class TenantService
+class CategoryService
 {
     private $plan, $data = [];
-    private $repository;
+    protected $categoryRepository, $tenantRepository;
 
-    public function __construct(TenantRepositoryInterface $repository)
+    public function __construct(
+        CategoryRepositoryInterface $categoryRepository,
+        TenantRepositoryInterface $tenantRepository)
     {
-        $this->repository = $repository;
+        $this->categoryRepository = $categoryRepository;
+        $this->tenantRepository = $tenantRepository;
     }
 
-    public function getAllTenants(int $per_page) {
-        return $this->repository->getAll($per_page);
+    public function getCategoriesByUuid(string $uuid) {
+        $tenant = $this->tenantRepository->getTenantByUuid($uuid);
+
+        return $this->categoryRepository->getCategoriesById($tenant->id);
     }
 
-    public function getTenantByUuid(string $uuid) {
-        return $this->repository->getTenantByUuid($uuid);
+    public function getCategoryByUuid(string $uuid) {
+        return $this->categoryRepository->getCategoryByUuid($uuid);
     }
 
     public function make(Plan $plan, array $data)
