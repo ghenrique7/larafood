@@ -17,7 +17,7 @@ class TableApiController extends Controller
         $this->tableService = $tableService;
     }
 
-    public function tablesByTenant(TenantRequest $request)
+    public function index(TenantRequest $request)
     {
         $tables = $this->tableService->getTablesByTenantUuid($request->token_company);
 

@@ -19,7 +19,7 @@ class CategoryApiController extends Controller
         $this->categoryService = $categoryService;
     }
 
-    public function categoriesByTenant(TenantRequest $request)
+    public function index(TenantRequest $request)
     {
         $categories = $this->categoryService->getCategoriesByUuid($request->token_company);
         return CategoryResource::collection($categories);
