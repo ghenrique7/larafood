@@ -37,13 +37,14 @@
                                 {{ $plan->name }}
                             </td>
                             <td>
-                                R$ {{ $plan->price }}
+                                R$ {{ number_format($plan->price, 2, ',', '.') }}
                             </td>
                             <td style="width=10px;">
-                                <a href="{{route('details.plans.index', $plan->url)}}" class="btn btn-info">Detalhes</a>
+                                <a href="{{ route('details.plans.index', $plan->url) }}" class="btn btn-info">Detalhes</a>
                                 <a href="{{ route('plans.edit', $plan->url) }}" class="btn btn-info">Editar</a>
                                 <a href="{{ route('plans.show', $plan->url) }}" class="btn btn-warning">VER</a>
-                                <a href="{{ route('plans.profiles', $plan->id) }}" class="btn btn-warning"><i class="fas fa-address-book"></i></a>
+                                <a href="{{ route('plans.profiles', $plan->id) }}" class="btn btn-warning"><i
+                                        class="fas fa-address-book"></i></a>
                             </td>
                     </tr>
                     @endforeach

@@ -13,17 +13,30 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\PlanController;
-use App\Http\Controllers\ACL\ProfileController;
-use App\Http\Controllers\ACL\PermissionController;
-use App\Http\Controllers\ACL\PlanProfileController;
-use App\Http\Controllers\Admin\DetailPlanController;
-use App\Http\Controllers\ACL\ProfilePermissionController;
-use App\Http\Controllers\Site\SiteController;
+use App\Http\Controllers\Admin\{
+    PlanController,
+    UserController,
+    DetailPlanController
+};
+use App\Http\Controllers\ACL\{
+    ProfileController,
+    PermissionController,
+    PlanProfileController,
+    ProfilePermissionController
+};
+use App\Http\Controllers\Site\{
+    SiteController
+};
 
 Route::prefix('admin')
     ->middleware('auth')
     ->group(function () {
+
+        /**
+         * Routes Users
+         */
+        Route::any('users/search', [UserController::class, 'search'])->name('users.search');
+        Route::resource('users', UserController::class);
 
         /**
          * Plan x Profile

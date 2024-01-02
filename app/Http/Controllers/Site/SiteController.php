@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
 use App\Models\Plan;
-use Illuminate\Http\Request;
 
 class SiteController extends Controller
 {
@@ -15,12 +14,12 @@ class SiteController extends Controller
         return view('site.pages.home.index', compact('plans'));
     }
 
-    public function plan(string $url, Request $request) {
+    public function plan(string $url) {
         if(!$plan = Plan::where('url', $url)->first()) {
             return back()->with('error', 'A url passada não corresponde com nossos registros.');
         }
-
-        $request->session()->put('plan', $plan->name);
+        
+        session()->put('plan', $plan);
 
         return redirect()->route('register');
     }

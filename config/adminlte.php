@@ -299,13 +299,16 @@ return [
             'text' => 'Perfis',
             'url'  => 'admin/profiles',
             'icon' => 'fas fa-address-book',
-            // 'can' => 'profiles' entender esta logica em video
         ],
         [
             'text' => 'Permissões',
             'url'  => 'admin/permissions',
             'icon' => 'fas fa-lock',
-            // 'can' => 'permissions' entender esta logica em video
+        ],
+        [
+            'text' => 'Usuários',
+            'url'  => 'admin/users',
+            'icon' => 'fas fa-users',
         ],
     ],
 

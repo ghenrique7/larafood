@@ -1,4 +1,3 @@
-
 @include('admin.includes.alerts')
 
 <div class="form-group">
@@ -12,7 +11,6 @@
 </div>
 <div class="form-group">
     <label>Descrição</label>
-    <input type="text" name="description" class="form-control" placeholder="Descrição"
-        value="{{ $plan->description ?? old('description') }}">
+    <input type="text" name="description" class="form-control" placeholder="Descrição">
 </div>
 <button type="submit" class="btn btn-dark">Enviar</button>
