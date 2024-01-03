@@ -9,8 +9,9 @@ interface OrderRepositoryInterface
         float $total,
         string $status,
         int $tenantId,
-        $clientId = '',
-        $tableId = ''
+        string $comment = '',
+        $clientId = null,
+        $tableId = null
     );
     public function getOrderByIdentify(string $identify);
 }

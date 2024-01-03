@@ -18,7 +18,6 @@ class ProductApiController extends Controller
 
     public function index(TenantRequest $request)
     {
-        return $request;
         $products = $this->productService->getProductsByTenantUuid(
             $request->token_company,
             $request->get('categories', [])

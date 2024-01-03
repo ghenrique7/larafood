@@ -19,12 +19,29 @@ class OrderRepository implements OrderRepositoryInterface
         float $total,
         string $status,
         int $tenantId,
-        $clientId = '',
-        $tableId = ''
+        string $comment = '',
+        $clientId = null,
+        $tableId = null
     ) {
+
+        $data = [
+            'identify' => $identify,
+            'total' => $total,
+            'status' => $status,
+            'tenant_id' => $tenantId,
+            'comment' => $comment,
+            'client_id' =>$clientId,
+            'table_id' => $tableId
+        ];
+
+       
+        $order = $this->repository->create($data);
+
+        return $order;
     }
 
     public function getOrderByIdentify(string $identify)
     {
+        return $this->repository->where('identify', $identify)->first();
     }
 }

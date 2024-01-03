@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Http\Request;
 use App\Services\CategoryService;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\CategoryRequest;
 use App\Http\Requests\Api\TenantRequest;
 use App\Http\Resources\CategoryResource;
 
