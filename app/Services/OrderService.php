@@ -80,7 +80,6 @@ class OrderService
                 'qty' => $productOrder['qty'],
                 'price' => $product->price
             ]);
-
         }
         return $products;
     }
@@ -89,7 +88,7 @@ class OrderService
     {
         $total = 0;
 
-        foreach($products as $product) {
+        foreach ($products as $product) {
             $total += ($product['price'] * $product['qty']);
         }
 
@@ -116,5 +115,17 @@ class OrderService
     private function getClientIdByOrder()
     {
         return auth()->check() ? auth()->user()->id : null;
+    }
+
+    public function getOrderByIdentify(string $identify)
+    {
+        return $this->orderRepository->getOrderByIdentify($identify);
+    }
+
+    public function getOrdersByClient()
+    {
+        $idClient = $this->getClientIdByOrder();
+
+        return $this->orderRepository->getOrdersByClient($idClient);
     }
 }

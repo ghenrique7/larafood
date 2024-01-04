@@ -71,7 +71,14 @@ class OrderRepository implements OrderRepositoryInterface
 
         //     DB::table('order_product')->insert($orderProducts);
         // }
+    }
 
+    public function getOrdersByClient(int $idClient)
+    {
+        $orders = $this->repository
+            ->where('client_id', $idClient)
+            ->paginate();
 
+        return $orders;
     }
 }
