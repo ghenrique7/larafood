@@ -4,11 +4,13 @@ namespace App\Models;
 
 use App\Models\Traits\UserACLTrait;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
     use UserACLTrait;
+    use HasFactory;
 
     protected $fillable = ['name', 'email', 'password', 'tenant_id'];
 

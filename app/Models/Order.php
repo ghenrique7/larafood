@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
     use TenantTrait;
+    use HasFactory;
 
     protected $fillable = [
         'tenant_id', 'identify', 'client_id', 'table_id', 'total', 'status', 'comment'

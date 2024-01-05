@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class DetailPlan extends Model
 {
+
+    use HasFactory;
+
     protected $table = 'details_plan';
 
     protected $fillable = ['name'];
