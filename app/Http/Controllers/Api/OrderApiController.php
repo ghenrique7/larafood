@@ -17,9 +17,26 @@ class OrderApiController extends Controller
         $this->orderService = $orderService;
     }
 
-    public function store(StoreOrder $request) {
+    public function store(StoreOrder $request)
+    {
         $order = $this->orderService->createNewOrder($request->all());
 
         return new OrderResource($order);
+    }
+
+    public function show(string $identify)
+    {
+        if (!$order = $this->orderService->getOrderByIdentify($identify)) {
+            return response()->json(['message' => 'Not Found'], 404);
+        }
+
+        return new OrderResource($order);
+    }
+
+    public function myOrders()
+    {
+       $orders = $this->orderService->getOrdersByClient();
+
+        return OrderResource::collection($orders);
     }
 }
