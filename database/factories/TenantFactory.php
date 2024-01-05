@@ -3,16 +3,13 @@
 namespace Database\Factories;
 
 use App\Models\Plan;
-use App\Models\Tenant;
-use Faker\Factory;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Models\Tenant>
  */
 class TenantFactory extends Factory
 {
-    protected $model = Tenant::class;
-
     /**
      * Define the model's default state.
      *

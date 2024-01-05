@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Models\Plan;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -10,14 +9,12 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class PlanFactory extends Factory
 {
-    protected $model = Plan::class;
-
     /**
      * Define the model's default state.
      *
      * @return array<string, mixed>
      */
-    
+
     public function definition(): array
     {
 

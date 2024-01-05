@@ -3,15 +3,14 @@
 namespace Database\Factories;
 
 use App\Models\Tenant;
-use App\Models\Product;
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Product>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Table>
  */
-class ProductFactory extends Factory
+class TableFactory extends Factory
 {
-
     /**
      * Define the model's default state.
      *
@@ -21,10 +20,8 @@ class ProductFactory extends Factory
     {
         return [
             'tenant_id' => Tenant::factory(),
-            'title' => fake()->unique()->name,
-            'description' => fake()->sentence(),
-            'image' => 'pizza.png',
-            'price' => 12.9
+            'identify' => uniqid() . Str::random(10),
+            'description' => fake()->sentence()
         ];
     }
 }

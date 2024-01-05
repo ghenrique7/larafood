@@ -15,7 +15,9 @@ use App\Http\Controllers\Api\Auth\{
 };
 use Illuminate\Support\Facades\Route;
 
-Route::post('/sanctum/token', [AuthClientController::class, 'auth']);
+Route::post('/auth/token', [AuthClientController::class, 'auth']);
+Route::post('/auth/register', [RegisterController::class, 'store']);
+
 
 Route::group(
     [
@@ -47,7 +49,6 @@ Route::group([
     Route::get('/product/{identify}', [ProductApiController::class, 'show']);
     Route::get('/products', [ProductApiController::class, 'index']);
 
-    Route::post('/client', [RegisterController::class, 'store']);
 
     Route::post('/orders', [OrderApiController::class, 'store']);
     Route::get('/orders/{identify}', [OrderApiController::class, 'show']);
