@@ -49,7 +49,6 @@ Route::group([
     Route::get('/product/{identify}', [ProductApiController::class, 'show']);
     Route::get('/products', [ProductApiController::class, 'index']);
 
-
     Route::post('/orders', [OrderApiController::class, 'store']);
     Route::get('/orders/{identify}', [OrderApiController::class, 'show']);
 });

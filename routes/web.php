@@ -75,6 +75,7 @@ Route::prefix('admin')
         /**
          * Routes Tables
          */
+        Route::any('tables/qrcode/{identify}', [TableController::class, 'qrcode'])->name('tables.qrcode');
         Route::any('tables/search', [TableController::class, 'search'])->name('tables.search');
         Route::resource('tables', TableController::class);
 

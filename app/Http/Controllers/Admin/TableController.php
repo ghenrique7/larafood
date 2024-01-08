@@ -16,7 +16,6 @@ class TableController extends Controller
         $this->repository = $table;
 
         $this->middleware(['can:tables']);
-
     }
     /**
      * Display a listing of the resource.
@@ -56,6 +55,22 @@ class TableController extends Controller
         }
 
         return view('admin.pages.tables.show', compact('table'));
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function qrcode(string $identify)
+    {
+        if (!$table = $this->repository->where('identify', $identify)->first()) {
+            return back();
+        }
+
+        $tenant = auth()->user()->tenant;
+
+        $uri = env('URI_CLIENT') . "/{$tenant->uuid}/{$table->uuid}";
+
+        return view('admin.pages.tables.qrcode', compact('table', 'uri'));
     }
 
     /**
